@@ -15,3 +15,10 @@ export const getWeatherForecast = async (lat, lon) => {
 
   return { ...response };
 };
+
+export const getWeatherByName = async (name) => {
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${API_KEY}&units=metric`;
+  const response = await axios.get(url);
+
+  return { ...response };
+};

@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchWeatherByLocation, fetchWeatherForecast } from "./operations";
+import {
+  fetchWeatherByLocation,
+  fetchWeatherByName,
+  fetchWeatherForecast,
+} from "./operations";
 
 const initialState = {
   currentWeather: {},
@@ -35,6 +39,18 @@ export const weatherSlice = createSlice({
       })
       .addCase(fetchWeatherForecast.rejected, (state, { payload }) => {
         state.forecast = [];
+        state.isError = payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchWeatherByName.pending, (state) => {
+        state.isLoading = true;
+        state.isError = null;
+      })
+      .addCase(fetchWeatherByName.fulfilled, (state, { payload }) => {
+        state.currentWeather = payload;
+      })
+      .addCase(fetchWeatherByName.rejected, (state, { payload }) => {
+        state.currentWeather = {};
         state.isError = payload;
         state.isLoading = false;
       }),
