@@ -6,27 +6,18 @@ import {
 } from "../../services/openWeatherMap";
 
 export const fetchWeatherByLocation = createAsyncThunk(
-  "location/fetchWeatherByLocation",
+  "weather/fetchWeatherByLocation",
   async (coords, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const { lat, lon } = state.location;
-    if (lat && lon) {
-      return thunkAPI.rejectWithValue("We already have location!");
-    }
-
     try {
       const { data } = await getWeather(coords.lat, coords.lon);
       return {
+        name: data?.name,
         temp: data?.main?.temp,
         feels: data?.main?.feels_like,
         humidity: data?.main?.humidity,
         pressure: data?.main?.pressure,
-        weather: {
-          id: data?.weather[0]?.id,
-          description: data?.weather[0]?.description,
-          icon: data?.weather[0]?.icon,
-          main: data?.weather[0]?.main,
-        },
+        weather: [...data?.weather],
+        wind: data?.wind?.speed,
       };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -35,42 +26,56 @@ export const fetchWeatherByLocation = createAsyncThunk(
 );
 
 export const fetchWeatherByName = createAsyncThunk(
-  "location/fetchWeatherByName",
+  "weather/fetchWeatherByName",
   async (name, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const { city } = state.location;
-    if (city) {
-      return thunkAPI.rejectWithValue("We already have city name!");
-    }
-
     try {
       const { data } = await getWeatherByName(name);
       return {
+        name: data?.name,
         temp: data?.main?.temp,
         feels: data?.main?.feels_like,
         humidity: data?.main?.humidity,
         pressure: data?.main?.pressure,
-        weather: {
-          id: data?.weather[0]?.id,
-          description: data?.weather[0]?.description,
-          icon: data?.weather[0]?.icon,
-          main: data?.weather[0]?.main,
-        },
+        weather: [...data?.weather],
+        wind: data?.wind?.speed,
       };
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      // return thunkAPI.rejectWithValue(error.message);
+      let errorMessage = "An error occurred";
+      if (error.response && error.response.data) {
+        if (error.response.data.message) {
+          errorMessage = error.response.data.message;
+        } else {
+          errorMessage = JSON.stringify(error.response.data);
+        }
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+
+      return thunkAPI.rejectWithValue(errorMessage);
     }
   }
 );
 
 export const fetchWeatherForecast = createAsyncThunk(
-  "location/fetchWeatherForecast",
-  async (coords, thunkAPI) => {
+  "weather/fetchWeatherForecast",
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const {
+      currentWeather: { name },
+    } = state.weather;
+
     try {
-      const { data } = await getWeatherForecast(coords.lat, coords.lon);
+      const { data } = await getWeatherForecast(name);
       return data.list;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
+
+// const state = thunkAPI.getState();
+// const { city } = state.location;
+// if (city) {
+//   return thunkAPI.rejectWithValue("Wrong city name!");
+// }

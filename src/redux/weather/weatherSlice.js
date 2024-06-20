@@ -18,21 +18,15 @@ export const weatherSlice = createSlice({
 
   extraReducers: (builder) =>
     builder
-      .addCase(fetchWeatherByLocation.pending, (state) => {
-        state.isLoading = true;
-        state.isError = null;
-      })
       .addCase(fetchWeatherByLocation.fulfilled, (state, { payload }) => {
         state.currentWeather = payload;
+        state.forecast = [];
       })
       .addCase(fetchWeatherByLocation.rejected, (state, { payload }) => {
         state.currentWeather = {};
+        state.forecast = [];
         state.isError = payload;
         state.isLoading = false;
-      })
-      .addCase(fetchWeatherForecast.pending, (state) => {
-        state.isLoading = true;
-        state.isError = null;
       })
       .addCase(fetchWeatherForecast.fulfilled, (state, { payload }) => {
         state.forecast = payload;
@@ -42,18 +36,30 @@ export const weatherSlice = createSlice({
         state.isError = payload;
         state.isLoading = false;
       })
-      .addCase(fetchWeatherByName.pending, (state) => {
-        state.isLoading = true;
-        state.isError = null;
-      })
       .addCase(fetchWeatherByName.fulfilled, (state, { payload }) => {
         state.currentWeather = payload;
+        state.forecast = [];
       })
       .addCase(fetchWeatherByName.rejected, (state, { payload }) => {
         state.currentWeather = {};
+        state.forecast = [];
         state.isError = payload;
         state.isLoading = false;
-      }),
+      })
+      .addMatcher(
+        ({ type }) => type.endsWith("/pending"),
+        (state) => {
+          state.isLoading = true;
+          state.isError = null;
+        }
+      )
+      .addMatcher(
+        ({ type }) => type.endsWith("/fulfilled"),
+        (state) => {
+          state.isLoading = false;
+          state.isError = null;
+        }
+      ),
 });
 
 export const weatherReducer = weatherSlice.reducer;

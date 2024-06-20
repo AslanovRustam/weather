@@ -6,6 +6,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import WeatherForecast from "./components/WeatherForecast/WeatherForecast";
+import { setLocation } from "./redux/location/locationSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,14 +19,14 @@ function App() {
     };
 
     const success = ({ coords }) => {
-      console.log(coords);
       dispatch(
         fetchWeatherByLocation({ lat: coords.latitude, lon: coords.longitude })
       );
+      dispatch(setLocation(true));
     };
 
     const error = () => {
-      // скорее всего буду сетить что-то, но пока не придумал что
+      dispatch(setLocation(false));
     };
 
     navigator.geolocation.getCurrentPosition(success, error, options);
@@ -35,7 +36,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Header />}>
         <Route index element={<Home />} />
-        <Route path="/forecast" element={<WeatherForecast />} />
+        {/* <Route path="/weather" element={<WeatherForecast />} /> */}
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
@@ -43,5 +44,3 @@ function App() {
 }
 
 export default App;
-
-// 805e4fb8991e473eaf3816ded932bfc3    https://opencagedata.com/dashboard#geocoding буду использовать для получения шираты/долготы из названия города

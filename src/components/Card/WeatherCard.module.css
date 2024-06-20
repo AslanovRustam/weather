@@ -1,0 +1,42 @@
+.container {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  border-radius: 8px;
+}
+.name,
+.temp {
+  font-size: 48px;
+  font-weight: 800;
+}
+.wraper {
+  display: flex;
+  align-items: center;
+}
+.list {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  background-color: var(--color-gray);
+  border-radius: 6px;
+}
+.item {
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 5px;
+  color: var(--color-white);
+  opacity: 0.5;
+}
+.description {
+  font-weight: 500;
+}
+.value {
+  font-size: 12px;
+}
