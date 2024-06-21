@@ -5,7 +5,7 @@
   max-width: 20em;
   margin: 20px auto;
   padding: 10px;
-  background-color: var(--color-light);
+  background-color: var(--color-lightBg);
   color: var(--color-dark);
   border-radius: 8px;
 }
