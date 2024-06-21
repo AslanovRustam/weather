@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setCity } from "../../redux/location/locationSlice";
 import { fetchWeatherByName } from "../../redux/weather/operations";
 import s from "./form.module.css";
 
@@ -21,7 +20,7 @@ function FormComponent() {
       setError(true);
       return;
     }
-    dispatch(setCity(query));
+
     dispatch(fetchWeatherByName(query));
     setQuery("");
   };

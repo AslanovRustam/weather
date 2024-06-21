@@ -1,20 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.wraper {
+  margin: 5px 0;
+}
 .table {
   width: 100%;
   border-collapse: collapse;
-  background-color: var(--color-white);
   text-align: center;
 }
 
 .thead {
   color: var(--color-white);
   background-color: var(--color-accent);
+  border: 1px solid var(--color-white);
   text-transform: uppercase;
+  padding: 0 10px;
 }
 
 .td {
-  padding: 10px;
+  padding: 0 10px;
   border: 1px solid var(--color-gray);
-  color: var(--color-dark);
 }
 
 .th {
@@ -28,7 +36,9 @@
     background-color: var(--color-light);
   }
 }
-
+.icon {
+  width: 3em;
+}
 .btn {
   color: var(--color-dark);
   background-color: var(--color-white);
@@ -39,10 +49,26 @@
   padding: 6px 12px;
   border-radius: 4px;
   transform: scale(1);
+  animation: btnAnim 1.5s ease-in-out infinite alternate;
 }
 
 .btn:hover,
 .btn:focus {
   color: var(--color-white);
   background-color: var(--color-accent);
+}
+
+@keyframes btnAnim {
+  0% {
+    box-shadow: 0 0 var(--color-accent);
+  }
+  100% {
+    box-shadow: 0 0 2em var(--color-accent);
+  }
+}
+
+@media screen and (max-width: 431px) {
+  .wraper {
+    font-size: 8px;
+  }
 }

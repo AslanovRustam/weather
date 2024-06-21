@@ -1,12 +1,11 @@
 import "modern-normalize/modern-normalize.css";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchWeatherByLocation } from "./redux/weather/operations";
 import { Navigate, Route, Routes } from "react-router-dom";
+import { fetchWeatherByLocation } from "./redux/weather/operations";
+import { setLocation } from "./redux/location/locationSlice";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
-import WeatherForecast from "./components/WeatherForecast/WeatherForecast";
-import { setLocation } from "./redux/location/locationSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,7 +35,6 @@ function App() {
     <Routes>
       <Route path="/" element={<Header />}>
         <Route index element={<Home />} />
-        {/* <Route path="/weather" element={<WeatherForecast />} /> */}
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

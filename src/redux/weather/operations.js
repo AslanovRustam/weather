@@ -40,7 +40,6 @@ export const fetchWeatherByName = createAsyncThunk(
         wind: data?.wind?.speed,
       };
     } catch (error) {
-      // return thunkAPI.rejectWithValue(error.message);
       let errorMessage = "An error occurred";
       if (error.response && error.response.data) {
         if (error.response.data.message) {
@@ -73,9 +72,3 @@ export const fetchWeatherForecast = createAsyncThunk(
     }
   }
 );
-
-// const state = thunkAPI.getState();
-// const { city } = state.location;
-// if (city) {
-//   return thunkAPI.rejectWithValue("Wrong city name!");
-// }
