@@ -1,8 +1,16 @@
-# React + Vite
+# Weather Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![alt text](src/assets/readme.jpg "description")
 
-Currently, two official plugins are available:
+This is a React application that displays the weather information based on the user's current geolocation or a manually entered location. The application shows the weather forecast for the next 5 days.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+
+Display current weather based on user's geolocation.
+Allow manual input of a city to display weather information.
+Show weather forecast for the next 5 days.
+Display weather details including temperature, pressure, and wind speed.
+
+## Technology stack
+
+React.js
