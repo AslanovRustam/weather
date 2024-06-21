@@ -6,7 +6,7 @@ import { formatTime, groupDataByDate } from "../../services/helpers";
 import { imgUrl } from "../../services/openWeatherMap";
 import s from "./weatherForecast.module.css";
 
-function WeatherForecast() {
+function WeatherForecast({ weather }) {
   const forecast = useSelector(selectForecast);
   const dispatch = useDispatch();
 
@@ -16,8 +16,10 @@ function WeatherForecast() {
 
   const groupedData = groupDataByDate(forecast);
 
-  console.log(forecast);
-  console.log(groupedData);
+  if (!weather || !weather.weather) {
+    return;
+  }
+
   return (
     <section className={s.container}>
       <button className={s.btn} type="button" onClick={getForecast}>

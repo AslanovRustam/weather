@@ -22,7 +22,7 @@ function Home() {
       {isError && <ErrorComponent error={isError} />}
       {isLoading && <Loader />}
       <WeatherCard weather={weather} isLoading={isLoading} />
-      <WeatherForecast />
+      <WeatherForecast weather={weather} />
     </>
   );
 }
